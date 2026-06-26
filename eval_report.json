@@ -1,0 +1,141 @@
+{
+  "timestamp": "2026-06-26T08:48:40.217133",
+  "model": "Qwen3-4B",
+  "method": "LoRA",
+  "training_metrics": {
+    "final_loss": 1.334988555908203,
+    "final_accuracy": 0.685042771421946,
+    "total_steps": 200,
+    "eval_loss": 1.3782768249511719
+  },
+  "loss_progression": [
+    {
+      "step": 50,
+      "loss": 3.993345031738281,
+      "accuracy": 0.5855366149773964
+    },
+    {
+      "step": 100,
+      "loss": 3.2353506469726563,
+      "accuracy": 0.6174665168156991
+    },
+    {
+      "step": 150,
+      "loss": 1.9995387268066407,
+      "accuracy": 0.6543498787054649
+    },
+    {
+      "step": 200,
+      "loss": 1.334988555908203,
+      "accuracy": 0.685042771421946
+    }
+  ],
+  "eval_progression": [
+    {
+      "step": 100,
+      "eval_loss": 2.6458780765533447
+    },
+    {
+      "step": 200,
+      "eval_loss": 1.3782768249511719
+    }
+  ],
+  "inference_metrics": {
+    "TFTT": {
+      "avg_ms": 50.01,
+      "p50_ms": 49.4,
+      "p95_ms": 54.96
+    },
+    "QPS": {
+      "avg": 0.175
+    },
+    "RPS": {
+      "avg": 0.175
+    },
+    "tokens_per_sec": {
+      "avg": 22.4
+    },
+    "per_question": [
+      {
+        "q": 1,
+        "tftt_ms": 47.05,
+        "total_s": 5.275,
+        "tokens": 128.0,
+        "tok_per_sec": 24.3,
+        "qps": 0.19
+      },
+      {
+        "q": 2,
+        "tftt_ms": 50.86,
+        "total_s": 5.653,
+        "tokens": 128.0,
+        "tok_per_sec": 22.7,
+        "qps": 0.177
+      },
+      {
+        "q": 3,
+        "tftt_ms": 44.94,
+        "total_s": 5.636,
+        "tokens": 128.0,
+        "tok_per_sec": 22.7,
+        "qps": 0.177
+      },
+      {
+        "q": 4,
+        "tftt_ms": 54.3,
+        "total_s": 5.625,
+        "tokens": 128.0,
+        "tok_per_sec": 22.8,
+        "qps": 0.178
+      },
+      {
+        "q": 5,
+        "tftt_ms": 50.03,
+        "total_s": 5.679,
+        "tokens": 128.0,
+        "tok_per_sec": 22.5,
+        "qps": 0.176
+      },
+      {
+        "q": 6,
+        "tftt_ms": 48.76,
+        "total_s": 5.403,
+        "tokens": 128.0,
+        "tok_per_sec": 23.7,
+        "qps": 0.185
+      },
+      {
+        "q": 7,
+        "tftt_ms": 47.87,
+        "total_s": 5.807,
+        "tokens": 128.0,
+        "tok_per_sec": 22.1,
+        "qps": 0.172
+      },
+      {
+        "q": 8,
+        "tftt_ms": 55.5,
+        "total_s": 6.631,
+        "tokens": 128.0,
+        "tok_per_sec": 19.3,
+        "qps": 0.151
+      },
+      {
+        "q": 9,
+        "tftt_ms": 46.96,
+        "total_s": 5.708,
+        "tokens": 128.0,
+        "tok_per_sec": 22.5,
+        "qps": 0.175
+      },
+      {
+        "q": 10,
+        "tftt_ms": 53.84,
+        "total_s": 5.923,
+        "tokens": 128.0,
+        "tok_per_sec": 21.6,
+        "qps": 0.169
+      }
+    ]
+  }
+}
