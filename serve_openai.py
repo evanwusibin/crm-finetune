@@ -23,7 +23,7 @@ import uvicorn
 # ============================================================
 # 配置
 # ============================================================
-MODEL_PATH = "./model/Qwen3-4B-merged"
+MODEL_PATH = "./model/Qwen3-4B-QLoRA-BYD-v2-merged"  # v2 清洗数据微调模型
 HOST = "0.0.0.0"
 PORT = 8100
 MODEL_NAME = "qwen3-crm"
@@ -103,6 +103,8 @@ class ChatCompletionResponse(BaseModel):
 # ============================================================
 # 核心推理函数
 # ============================================================
+import re
+
 def generate_response(messages: list[dict], max_tokens: int, temperature: float, top_p: float):
     """非流式生成"""
     text = tokenizer.apply_chat_template(
@@ -124,6 +126,13 @@ def generate_response(messages: list[dict], max_tokens: int, temperature: float,
 
     generated_ids = outputs[0][input_len:]
     response_text = tokenizer.decode(generated_ids, skip_special_tokens=True)
+    # 去除 Qwen3 thinking 标签（多层嵌套）
+    for _ in range(3):
+        cleaned = re.sub(r"<think>.*?</think>", "", response_text, flags=re.DOTALL)
+        if cleaned == response_text:
+            break
+        response_text = cleaned
+    response_text = response_text.strip()
     output_tokens = len(generated_ids)
 
     return response_text, input_len, output_tokens

@@ -242,6 +242,47 @@ LLM_DEFAULT_MODEL=qwen3-crm
 
 ---
 
+## Hybrid 融合服务（新增 2026-08-20，推荐）
+
+`serve_hybrid.py @8101` 在 `8100` 域内模型之上叠加 **联网/通用模型纠偏 + 碎片润色**，解决微调模型“背页码/答非所问”问题。
+
+```
+用户问题
+  ├─> Finetuned 8100 (Qwen3-4B-QLoRA-BYD-v2, 域内话术)
+  ├─> Web Search (CuratedKB 兜底 → Tavily → DuckDuckGo)
+  └─> Fusion + Polish LLM → 最终答案
+        ├─ 融合 LLM: glm-5.2 @ Sensenova (https://token.sensenova.cn/v1)
+        └─ 润色 LLM: step-3.7-flash @ StepFun (1.39s, 检测到页码/乱码/单据号自动改写)
+```
+
+**配置 `.env`（复制 `.env.example`，不提交真实 Key）：**
+```env
+FINETUNED_API=http://localhost:8100/v1/chat/completions
+FINETUNED_MODEL=qwen3-crm
+FUSION_API=https://token.sensenova.cn/v1/chat/completions
+FUSION_MODEL=glm-5.2
+FUSION_API_KEY=sk-***  # 商汤
+POLISH_API=https://api.stepfun.com/step_plan/v1/chat/completions
+POLISH_MODEL=step-3.7-flash
+POLISH_API_KEY=sk-***  # 阶跃
+TAVILY_API_KEY=  # 可选
+ENABLE_WEB_SEARCH=1
+```
+
+**实测（2026-08-20）：**
+| 通道 | 耗时 | 备注 |
+|------|------|------|
+| step-3.7-flash | 1.39s | 最快，润色用 |
+| deepseek-v4-flash | 1.50s | 备选 |
+| sensenova-6.8-flash-lite | 2.98s | — |
+| tokendock / ps.air-outer | SSL 被墙 | 不可用 |
+
+- 健康检查：`GET /health` 查看 `fusion_api/polish_api`
+- OpenAI 兼容：`POST /v1/chat/completions` + `POST /v1/hybrid/chat/completions`
+- 熔断：商汤 15s 超时自动回退 `域内+联网拼接`，不拖慢 RAG（RAG 已调 `timeout=180s`）
+
+---
+
 ## 运行顺序建议
 
 ```bash

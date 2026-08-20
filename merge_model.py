@@ -13,9 +13,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 # ============================================================
 # 配置
 # ============================================================
-BASE_MODEL = "./model/Qwen3-4B"            # 基座模型
-PEFT_MODEL = "./finetuned/LoRA_CRM/checkpoint-200"  # LoRA 适配器（checkpoint）
-MERGED_MODEL = "./model/Qwen3-4B-merged"   # 合并后输出
+BASE_MODEL = "./model/Qwen3-4B"                        # 基座模型
+PEFT_MODEL = "./finetuned/QLoRA_CRM_BYD_v2"               # QLoRA 适配器（v2 清洗数据）
+MERGED_MODEL = "./model/Qwen3-4B-QLoRA-BYD-v2-merged"     # 合并后输出（v2）
 
 
 # ============================================================
