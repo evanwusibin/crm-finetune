@@ -1,0 +1,43 @@
+# LlamaFactory 冒烟配置：与 train_qlora.py 逐项对齐（50步冒烟对照实验）
+# 运行：llamafactory-cli train llamafactory_smoke.yaml
+# 对齐项：QLoRA 4bit / r=16 / α=32 / dropout=0.05 / target=q,k,v,o_proj /
+#         batch=1×16 / lr=2e-4 / cosine / warmup=0.1 / steps=50 / cutoff=512
+
+### model
+model_name_or_path: model/Qwen3-4B
+quantization_bit: 4          # 对齐手写版 BitsAndBytesConfig(load_in_4bit=True)
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16                # 对齐 LORA_R
+lora_alpha: 32               # 对齐 LORA_ALPHA
+lora_dropout: 0.05           # 对齐 LORA_DROPOUT
+lora_target: q_proj,k_proj,v_proj,o_proj   # 对齐 TARGET_MODULES
+
+### dataset
+dataset: byd_train_v3
+template: qwen3              # Qwen3-4B 模板
+cutoff_len: 512              # 对齐 MAX_LENGTH
+overwrite_cache: true
+
+### training
+per_device_train_batch_size: 1       # 对齐 BATCH_SIZE
+gradient_accumulation_steps: 16      # 对齐 GRAD_ACCUM
+learning_rate: 2.0e-4                # 对齐 LEARNING_RATE
+lr_scheduler_type: cosine            # 对齐 lr_scheduler_type
+warmup_ratio: 0.1                    # 对齐 warmup_ratio
+num_train_epochs: 1.0
+max_steps: 50                # 对齐冒烟 50 步
+bf16: true
+plot_loss: true
+preprocessing_num_workers: 1
+report_to: none
+seed: 42
+
+### output
+output_dir: finetuned/LLaMAFactory_CRM_smoke
+logging_steps: 5
+save_strategy: "no"
+overwrite_output_dir: true

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-08-20 13:11:25",
+  "model": "Qwen3-4B-QLoRA-BYD-v2-merged",
+  "training_metrics": {
+    "final_eval_loss": 0.518923819065094,
+    "final_eval_acc": 0.890510592771613,
+    "final_train_loss": 0.3346749877929687,
+    "final_train_acc": 0.910367435887456
+  },
+  "eval_summary": {
+    "samples": 80,
+    "avg_token_overlap": 0.067,
+    "avg_correctness": 0.067,
+    "good": 0,
+    "bad": 80,
+    "good_rate": 0.0,
+    "issue_distribution": {}
+  },
+  "threshold": 0.5,
+  "bad_case_definition": "correctness <0.5 or junk/off_topic detected"
+}

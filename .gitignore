@@ -1,0 +1,68 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets / local config
+.env
+.env.*
+!.env.example
+
+# Logs and runtime outputs
+logs/
+*.log
+runs/
+wandb/
+
+# Model weights and training artifacts
+model/
+finetuned/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Cache
+.cache/
+.huggingface/
+modelscope/
+
+# Temporary files
+*.tmp
+*.bak
+*.bak_*
+
+data/
+
+# 业务评估产物（含内部问答内容，不上传）
+eval_v2_results.csv
+eval_v2_bad_cases.csv
+llamaboard_cache/
+saves/
+test/
+*.cmd
+logs_archive/
+改动记录*.md
+
+
+# 克隆环境(7.2GB)
+.venv-lf/
+
